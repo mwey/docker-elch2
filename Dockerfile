@@ -14,7 +14,7 @@ RUN docker-php-ext-configure gd \
      --with-xpm-dir=/usr/lib/x86_64-linux-gnu/  \
      --with-vpx-dir=/usr/lib/x86_64-linux-gnu/ 
 
-RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip gd xml
+RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip gd
 
 RUN curl -sS https://getcomposer.org/installer| php
 
