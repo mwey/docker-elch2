@@ -1,30 +1,15 @@
-FROM php:7.1
+FROM ubuntu:16.04
 
 RUN apt-get update -yqq
 RUN apt-get install apt-utils -y
-RUN apt-get install git -yqq
-RUN apt-get install -y zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libxpm-dev libvpx-dev libmcrypt-dev libgmp-dev
 RUN apt-get install wget -y
-RUN wget http://xdebug.org/files/xdebug-2.5.0.tgz
-RUN tar -xzf xdebug-2.5.0.tgz && cd xdebug-2.5.0 && phpize && ./configure --enable-xdebug && make && cp modules/xdebug.so /usr/lib/. && php --ini
-
-RUN docker-php-ext-configure gd \
-     --with-freetype-dir=/usr/lib/x86_64-linux-gnu/ \
-     --with-jpeg-dir=/usr/lib/x86_64-linux-gnu/ \ 
-     --with-xpm-dir=/usr/lib/x86_64-linux-gnu/  \
-     --with-vpx-dir=/usr/lib/x86_64-linux-gnu/ 
-
-RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip gd
-
-RUN curl -sS https://getcomposer.org/installer| php
-
-
-RUN echo 'zend_extension="/usr/lib/xdebug.so"'> /usr/local/etc/php/conf.d/20-xdebug.ini
-RUN echo 'xdebug.remote_enabled=1' >> /usr/local/etc/php/conf.d/20-xdebug.ini
-
-RUN wget https://phar.phpunit.de/phpunit-6.0.phar && chmod +x phpunit-6.0.phar && mv phpunit-6.0.phar /usr/local/bin/phpunit
-
-RUN apt-get install -y python-software-properties
+RUN apt-get install language-pack-en git unzip curl -yqq
+RUN apt-get install -y software-properties-common python-software-properties
+RUN LC_ALL=C.UTF-8 add-apt-repository -y  ppa:ondrej/php
 RUN apt-get update -yqq
-RUN apt-get install -y node npm
+RUN apt-get install -y php7.1 php7.1-cli php7.1-mbstring php7.1-zip php7.1-mysql php7.1-opcache php7.1-json php7.1-curl php7.1-ldap php7.1-intl php7.1-common php7.1-gd php7.1.soap php7.1-mcrypt php7.1-xdebug php7.1-xml
+RUN echo 'memory_limit=512M'> /etc/php/7.1/cli/conf.d/php-memory_limit.ini
+RUN curl -sS https://getcomposer.org/installer| php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get -y install phpunit
+RUN apt-get install -y nodejs npm
 
