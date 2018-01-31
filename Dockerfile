@@ -11,5 +11,4 @@ RUN apt-get install -y php7.1 php7.1-cli php7.1-mbstring php7.1-zip php7.1-mysql
 RUN echo 'memory_limit=512M'> /etc/php/7.1/cli/conf.d/php-memory_limit.ini
 RUN curl -sS https://getcomposer.org/installer| php -- --install-dir=/usr/local/bin --filename=composer
 RUN apt-get -y install phpunit
-RUN apt-get install -y nodejs npm
-
+RUN curl -sL https://deb.nodesource.com/setup_9.x| bash - && apt-get install nodejs
