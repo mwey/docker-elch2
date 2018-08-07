@@ -12,3 +12,4 @@ RUN echo 'memory_limit=512M'> /etc/php/7.1/cli/conf.d/php-memory_limit.ini
 RUN curl -sS https://getcomposer.org/installer| php -- --install-dir=/usr/local/bin --filename=composer
 RUN apt-get -y install phpunit
 RUN curl -sL https://deb.nodesource.com/setup_9.x| bash - && apt-get install nodejs
+
